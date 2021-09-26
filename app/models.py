@@ -33,6 +33,18 @@ class User(UserMixin,db.Model):
     def load_user(author_id):
         return User.query.get(int(author_id))
     
+    
+class Blog(db.Model):    
+    __tablename__ = 'blogs'
+    id =  id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(140))
+    content = db.Column(db.String)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    # category = db.Column(db.String)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    comment = db.relationship('Comment', backref='pitch_id', lazy='dynamic')
+    likes = db.Column(db.Integer)
+    dislikes = db.Column(db.Integer)
         
         
     
