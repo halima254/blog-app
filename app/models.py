@@ -45,6 +45,35 @@ class Blog(db.Model):
     comment = db.relationship('Comment', backref='pitch_id', lazy='dynamic')
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
+    
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
         
+    @classmethod
+    def get_blogs(cls):
+        # pitches = Pitch.query.filter_by(category = category).all()
+        return blogs
+    
+    @classmethod 
+    def get_pitch(cls, id):
+        pitch = Pitch.query.filter_by(id = id).first()
+        return pitch
         
+class Comment(db.Model):
+    __tablename__ = 'comments' 
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    pitch = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    
+    def save_comments(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    @classmethod
+    def get_comments(cls, pitch):
+        comments = Comment.query.filter_by(pitch_id = pitch).all()
+        return comments  
+                  
     
