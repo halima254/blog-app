@@ -12,7 +12,7 @@ class User(UserMixin,db.Model):
     password_hash = db.Column(db.String(100))
     bio = db.Column(db.String(250))
     profile_pic_path = db.Column(db,String())
-    blog = db.relationship('Pitch',backref ='user', lazy='dynamic')
+    blog = db.relationship('Blog',backref ='user', lazy='dynamic')
     comment = db.relationship('Comment',backref='user',lazy='dynamic')
     
     @property
@@ -56,16 +56,16 @@ class Blog(db.Model):
         return blogs
     
     @classmethod 
-    def get_pitch(cls, id):
-        pitch = Pitch.query.filter_by(id = id).first()
-        return pitch
+    def get_blog(cls, id):
+        blog = Blog.query.filter_by(id = id).first()
+        return blog
         
 class Comment(db.Model):
     __tablename__ = 'comments' 
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    pitch = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    blog = db.Column(db.Integer, db.ForeignKey('blogs.id'))
     
     def save_comments(self):
         db.session.add(self)
@@ -73,7 +73,7 @@ class Comment(db.Model):
         
     @classmethod
     def get_comments(cls, pitch):
-        comments = Comment.query.filter_by(pitch_id = pitch).all()
+        comments = Comment.query.filter_by(blog_id = blog).all()
         return comments  
                   
     
