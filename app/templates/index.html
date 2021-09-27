@@ -1,13 +1,32 @@
 {%extends 'base.html' %}
 {% block content %}
-<h1>Random Quotes</h1>
-<p>{{quotes.quote}}</p>
-<h4>{{quotes.author}}</h4>
-<h1>My Blogs</h1>
-{%for blog in blog%}
-<h1>{{blog.body}}</h1>
-<p>{{blog.content}}</p>
-{%endfor%}
+<style>
+body {
+    background: url("{{url_for('static',filename='images/orangebg.jpg')}}") center/cover no-repeat;
+  }
+</style>
+<div class="container">
+    <h1 style="text-align: center;color:white">Random Quotes</h1>
+    <h3 style="text-align: center;color:white" >{{quotes.quote}}</h3>
+    <h4 style="text-align: end;color:white">{{quotes.author}}</h4>
+    <hr>
+
+
+    <h1 style="text-align:center">My Blogs</h1>
+    <hr>
+    <div class="row" style="align-items: center;"">
+    {%for blog in blog%}
+
+  
+    <div class=" col-md-6">
+        <div class="card jumbotron text-center">
+            <h2>{{blog.body}}</h2>
+            <p>{{blog.content}}</p>
+
+        </div>
+    </div>
+    {%endfor%}
+</div>
+</div>
+
 {%endblock%}
-
-
