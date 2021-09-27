@@ -1,0 +1,27 @@
+{%macro displayBlogs(blogs) %}
+<div class="container">
+    <div class="row">
+        
+        <div class="col-md-6" {% for blog in blogs %}>
+            <div class="jumbotron">
+
+                <h1>{{blog.body}}</h1>
+                <p>{{blog.content}}</p>
+                <p>{{blog.user.username}} <a href="/blog/{{blog.id}}"> <button
+                            class="btn btn-primary">View-Blog</button></a></p>
+            </div>
+
+            {%endfor%}
+        </div>
+    </div>
+</div>
+{%endmacro%}
+
+{%macro displayComments(comments)%}
+{% for comment in comments %}
+<div>
+    <h1>{{comment.user.username}}</h1>
+    <p>{{comment.comment}}</p>
+</div>
+{%endfor%}
+{%endmacro%}

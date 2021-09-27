@@ -1,0 +1,13 @@
+{%extends 'base.html' %}
+{% block content %}
+<h1>Random Quotes</h1>
+<p>{{quotes.quote}}</p>
+<h4>{{quotes.author}}</h4>
+<h1>My Blogs</h1>
+{%for blog in blog%}
+<h1>{{blog.body}}</h1>
+<p>{{blog.content}}</p>
+{%endfor%}
+{%endblock%}
+
+

@@ -6,12 +6,12 @@ from flask_login import UserMixin
 
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
-    id  = db.Column(db.Interger, primary_key=True)
+    id  = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64),index=True,unique=True)
-    email = db.Column(db.String(100), index= True, unique=True)
-    password_hash = db.Column(db.String(100))
-    bio = db.Column(db.String(250))
-    profile_pic_path = db.Column(db,String())
+    email = db.Column(db.String(140), index= True, unique=True)
+    password_hash = db.Column(db.String(128))
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
     blog = db.relationship('Blog',backref ='user', lazy='dynamic')
     comment = db.relationship('Comment',backref='user',lazy='dynamic')
     
@@ -24,7 +24,7 @@ class User(UserMixin,db.Model):
         self.password_hash = generate_password_hash(password)
         
     def verify_password(self,password):
-        return check_password_hask(self.password_hash,password)
+        return check_password_hash(self.password_hash,password)
     
     def __repr__(self):
         return f'User {self.username}'
@@ -36,13 +36,12 @@ class User(UserMixin,db.Model):
     
 class Blog(db.Model):    
     __tablename__ = 'blogs'
-    id =  id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
     content = db.Column(db.String)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    # category = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    comment = db.relationship('Comment', backref='pitch_id', lazy='dynamic')
+    comment = db.relationship('Comment', backref='blog_id', lazy='dynamic')
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
     
@@ -50,14 +49,13 @@ class Blog(db.Model):
         db.session.add(self)
         db.session.commit()
         
-    @classmethod
-    def get_blogs(cls):
-        # pitches = Pitch.query.filter_by(category = category).all()
-        return blogs
+    # @classmethod
+    # def get_blogs(cls):
+    #     return blogs
     
     @classmethod 
-    def get_blog(cls, id):
-        blog = Blog.query.filter_by(id = id).first()
+    def get_blog(self):
+        blog = Blog.query.all()
         return blog
         
 class Comment(db.Model):

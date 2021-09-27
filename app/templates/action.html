@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{%block content%}
+<div>
+    <h1>{{blog.body}}</h1>
+    <p>{{blog.content}}</p>
+    <p>{{blog.user.username}}  </p>
+  <a href="/blog/{{blog.id}}?likes=1"> <button>like</button></a>
+  {{blog.likes}}
+
+  <a href="//{{blog.id}}?dislikes=1" > <button>dislike</button></a>
+  {{blog.dislikes}}
+  {{ wtf.quick_form(comment_form)}}
+  {{ macro.displayComments(comments)}}
+</div>
+{%endblock%}

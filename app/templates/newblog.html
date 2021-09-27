@@ -1,0 +1,11 @@
+{%extends 'base.html' %}
+{% import 'macros.html' as macro %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{%block content%}
+
+<div style="background-color: #833471;">
+    <h1 style="color: antiquewhite;">Create New Blog</h1>
+
+    {{wtf.quick_form(blog_form)}}
+</div>
+{%endblock%}
