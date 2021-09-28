@@ -18,7 +18,6 @@ def index():
 @main.route('/blogs/blogy')
 def blog():
     blogs = Blog.get_blog()
-    
     return render_template('blogs.html', blogs = blogs)
 
 @main.route('/new/blog', methods = ['GET', 'POST'])
@@ -46,7 +45,7 @@ def new_blog():
 @login_required
 
 def blogs(id):
-    blog = Blog.get_blog(id)
+    blog = Blog.get_blogs(id)
     posted_date = blog.timestamp.strftime('%b %d,%Y')
     
     if request.args.get('likes'):
@@ -66,7 +65,7 @@ def blogs(id):
     comment_form = CommentForm()
     if comment_form.validate_on_submit():
         comment = comment_form.text.data   
-        new_comment = Comment(comment = comment, user = current_user, blog_id = blog_id)
+        new_comment = Comment(comment = comment, user = current_user, blog_id = blog)
         new_comment.save_comments()
     
     comments = Comment.get_comments(blog)
@@ -110,3 +109,11 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))      
+
+@main.route('/delete/<int:id>', methods=['GET','POST'])
+@login_required
+def delete(id):
+    blog = Blog.query.get_or_404(id)
+    db.session.delete(blog)   
+    db.session.commit()
+    return redirect(url_for('main.index')) 

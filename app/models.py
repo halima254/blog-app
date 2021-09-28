@@ -49,9 +49,10 @@ class Blog(db.Model):
         db.session.add(self)
         db.session.commit()
         
-    # @classmethod
-    # def get_blogs(cls):
-    #     return blogs
+    @classmethod
+    def get_blogs(cls,id):
+        blogs=Blog.query.filter_by(id=id).first()
+        return blogs
     
     @classmethod 
     def get_blog(self):
@@ -72,6 +73,9 @@ class Comment(db.Model):
     @classmethod
     def get_comments(cls, blog):
         comments = Comment.query.filter_by(blog_id = blog).all()
-        return comments  
+        return comments 
+    def get_comment(cls,author_id):
+        review = Comment.query.filter_by(author_id=author_id).first()
+        return review
                   
     

@@ -10,7 +10,7 @@
   <a href="/blog/{{blog.id}}?likes=1"> <button>like</button></a>
   {{blog.likes}}
 
-  <a href="//{{blog.id}}?dislikes=1" > <button>dislike</button></a>
+  <a href="/blog/{{blog.id}}?dislikes=1" > <button>dislike</button></a>
   {{blog.dislikes}}
   {{ wtf.quick_form(comment_form)}}
   {{ macro.displayComments(comments)}}
