@@ -1,5 +1,6 @@
 {%extends 'base.html' %}
+{% import 'macros.html' as macro %}
 {% block content %}
 <h1>Blogs</h1>
-
+{{macro.displayBlogs(blogs)}}
 {%endblock%}
