@@ -7,7 +7,7 @@ class Config:
     SECRET_KEY='halimayahya'
     # SECRET_KEY = os.environ.get('SECRET_KEY')
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_UR')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     
     #  email configurations
     MAIL_SERVER = 'smtp.googlemail.com'
@@ -25,7 +25,7 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_UR')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
 
 class TestConfig(Config):
